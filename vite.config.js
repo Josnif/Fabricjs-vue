@@ -7,11 +7,11 @@ import svgLoader from 'vite-svg-loader';
 export default defineConfig({
   plugins: [
     vue(),
-    svgLoader(),
+    // svgLoader(),
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@design": path.resolve(__dirname, "./src"),
     },
   },
 });

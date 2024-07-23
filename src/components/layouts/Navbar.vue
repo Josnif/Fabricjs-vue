@@ -6,8 +6,7 @@
         :key="item.name"
         @click="handleItemClick(item)"
         :class="[
-          'group flex items-center justify-center px-2.5 py-5',
-          { 'bg-green-100': isActive(item.value), 'hover:bg-gray-400': !isActive(item.value) }
+          'group flex items-center justify-center px-2.5 my-5',
         ]"
       >
         <ShapesMenu
@@ -18,7 +17,10 @@
           :handleActiveElement="handleActiveElement"
           :handleImageUpload="handleImageUpload"
         />
-        <Button v-else class="relative w-12 object-contain">
+        <Button v-else 
+          class="relative w-12 object-contain bg-none"
+          :class="{ 'bg-dark': isActive(item.value), 'hover:bg-gray-600': !isActive(item.value) }"
+        >
           <img
             :src="item.icon"
             :alt="item.name"

@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^10.11.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "fabric": "^6.0.2",
+    "fabric": "^5.3.0",
     "lucide-vue-next": "^0.414.0",
     "radix-vue": "^1.9.2",
     "tailwind-merge": "^2.4.0",
