@@ -6,10 +6,11 @@
       :handleActiveElement="handleActiveElement"
       :imageInputRef="imageInputRef"
     />
-    <LeftSidebar />
-    <h2 class="text-4xl">Testing</h2>
-    <canvas id="demo"></canvas>
-    <RightSidebar />
+    <div class="flex h-full flex-row">
+      <!-- <LeftSidebar /> -->
+      <canvas id="demo"></canvas>
+      <RightSidebar />
+    </div>
   </main>
 </template>
 

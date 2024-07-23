@@ -1,24 +1,26 @@
 <template>
     <DropdownMenu>
       <DropdownMenuTrigger as-child class="no-ring">
-        <Button class="relative h-5 w-5 object-contain" @click="handleActiveElement(item)">
+        <Button class="relative w-12 object-contain" @click="handleActiveElement(item)">
           <img
             :src="isDropdownElem ? activeElement.icon : item.icon"
             :alt="item.name"
-            fill
+            width="20"
+            height="20"
             :class="{ invert: isDropdownElem }"
+            class="object-contain"
           />
         </Button>
       </DropdownMenuTrigger>
   
-      <DropdownMenuContent class="mt-5 flex flex-col gap-y-1 border-none bg-primary-black py-4 text-white">
+      <DropdownMenuContent class="mt-5 flex flex-col gap-y-1 border-none bg-primary-light py-4 text-white">
         <Button
           v-for="elem in item.value"
           :key="elem.name"
           @click="handleActiveElement(elem)"
           :class="[
             'flex h-fit justify-between gap-10 rounded-none px-5 py-3 focus:border-none',
-            { 'bg-primary-green': activeElement.value === elem.value, 'hover:bg-primary-grey-200': activeElement.value !== elem.value }
+            { 'bg-green-200': activeElement.value === elem.value, 'hover:bg-primary-light': activeElement.value !== elem.value }
           ]"
         >
           <div class="group flex items-center gap-2">
@@ -29,7 +31,7 @@
               height="20"
               :class="{ invert: activeElement.value === elem.value }"
             />
-            <p :class="{ 'text-sm': true, 'text-primary-black': activeElement.value === elem.value, 'text-white': activeElement.value !== elem.value }">
+            <p :class="{ 'text-sm': true, 'text-black': activeElement.value === elem.value, 'text-black': activeElement.value !== elem.value }">
               {{ elem.name }}
             </p>
           </div>

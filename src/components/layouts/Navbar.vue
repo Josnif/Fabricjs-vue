@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex select-none items-center justify-between gap-4 bg-primary-black px-5 text-white">
+  <nav class="flex select-none items-center justify-center gap-4 bg-primary-light px-5 text-white">
     <ul class="flex flex-row">
       <li
         v-for="item in navElements"
@@ -7,7 +7,7 @@
         @click="handleItemClick(item)"
         :class="[
           'group flex items-center justify-center px-2.5 py-5',
-          { 'bg-primary-green': isActive(item.value), 'hover:bg-primary-grey-200': !isActive(item.value) }
+          { 'bg-green-100': isActive(item.value), 'hover:bg-gray-400': !isActive(item.value) }
         ]"
       >
         <ShapesMenu
@@ -18,12 +18,14 @@
           :handleActiveElement="handleActiveElement"
           :handleImageUpload="handleImageUpload"
         />
-        <Button v-else class="relative h-5 w-5 object-contain">
+        <Button v-else class="relative w-12 object-contain">
           <img
             :src="item.icon"
             :alt="item.name"
-            fill
+            width="20"
+            height="20"
             :class="{ invert: isActive(item.value) }"
+            class="object-contain"
           />
         </Button>
       </li>

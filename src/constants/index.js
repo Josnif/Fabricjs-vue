@@ -22,11 +22,6 @@ export const shapeElements = [
     value: "line",
   },
   {
-    icon: "/assets/image.svg",
-    name: "Image",
-    value: "image",
-  },
-  {
     icon: "/assets/freeform.svg",
     name: "Free Drawing",
     value: "freeform",
@@ -45,6 +40,11 @@ export const navElements = [
     value: shapeElements,
   },
   {
+    icon: "/assets/image.svg",
+    name: "Image",
+    value: "image",
+  },
+  {
     icon: "/assets/text.svg",
     value: "text",
     name: "Text",
@@ -58,11 +58,6 @@ export const navElements = [
     icon: "/assets/reset.svg",
     value: "reset",
     name: "Reset",
-  },
-  {
-    icon: "/assets/comments.svg",
-    value: "comments",
-    name: "Comments",
   },
 ];
 

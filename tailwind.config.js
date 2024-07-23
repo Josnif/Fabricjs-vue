@@ -19,6 +19,20 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        primary: {
+          black: "#14181F",
+          green: "#56FFA6",
+          grey: {
+            100: "#2B303B",
+            200: "#F8F8F8",
+            300: "#C4D3ED",
+          },
+          // light: "#F8F8F8"
+          light: "#f6f6f6",
+        },
+        dark: "#2B303B"
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
