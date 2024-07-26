@@ -308,11 +308,10 @@ export const handleCanvasObjectScaling = ({
     ? selectedElement?.height * selectedElement?.scaleY
     : selectedElement?.height;
 
-  setElementAttributes((prev) => ({
-    ...prev,
+  setElementAttributes({
     width: scaledWidth?.toFixed(0).toString() || "",
     height: scaledHeight?.toFixed(0).toString() || "",
-  }));
+  });
 };
 
 // render canvas objects coming from storage on canvas

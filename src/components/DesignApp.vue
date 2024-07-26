@@ -2,7 +2,7 @@
   <main class="h-screen overflow-hidden">
     <Navbar
       :activeElement="activeElement"
-      :handleImageUpload="handleImageUpload"
+      :handleImageUpload="handleImageUploadClick"
       :handleActiveElement="handleActiveElement"
       :imageInputRef="imageInputRef"
     />
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import { fabric } from 'fabric';
+import { ref, onMounted, onUnmounted, provide } from 'vue';
 import Navbar from './layouts/Navbar.vue';
 import LeftSidebar from './layouts/LeftSidebar.vue';
 import RightSidebar from './layouts/RightSidebar.vue';
 import DesignArea from './DesignArea.vue';
-import { defaultNavElement } from '../constants';
-import { initializeFabric } from '@design/lib/canvas'
+import { initializeFabric } from '@design/lib/canvas';
+import { useElements, useFabricEvents } from '@design/hooks';
+import { handleImageUpload } from '@design/lib/shapes'
 
 export default {
   name: 'DesignApp',
@@ -38,45 +38,63 @@ export default {
     DesignArea,
   },
   setup() {
-    const activeElement = ref(defaultNavElement);
-    const imageInputRef = ref(null);
     const canvasRef = ref(null);
     const fabricRef = ref(null);
+    provide('canvasRef', canvasRef);
+    provide('fabricRef', fabricRef);
 
-    const handleImageUpload = () => {
-      // Example of using fabricRef to add an image
-      const imgElement = document.createElement('img');
-      imgElement.src = 'path/to/your/image.jpg';
-      imgElement.onload = () => {
-        const imgInstance = new fabric.Image(imgElement, {
-          left: 100,
-          top: 100,
-          angle: 0,
-          opacity: 1,
-        });
-        fabricRef.value.add(imgInstance);
-      };
-    };
+    const { 
+      activeElement, 
+      imageInputRef, 
+      selectedShapeRef,
+      isDrawing,
+      shapeRef,
 
-    const handleActiveElement = () => {
-      // Example of using fabricRef to manipulate elements
-      const activeObject = fabricRef.value.getActiveObject();
-      if (activeObject) {
-        activeObject.set('fill', 'red');
-        fabricRef.value.renderAll();
-      }
-    };
+      activeObjectRef,
+      setActiveElement,
+      isEditingRef,
+      setElementAttributes,
+      undo,
+      redo,
+      
+      syncShapeInStorage,
+      deleteShapeFromStorage,
+
+      handleActiveElement, 
+    } = useElements();
+
+    const handleImageUploadClick  = (e) => {
+      e.stopPropagation();
+
+      handleImageUpload({
+        file: e.target.files[0],
+        canvas: fabricRef,
+        shapeRef,
+        syncShapeInStorage,
+      });
+    }
 
     onMounted(() => {
-      initializeFabric({
+      const canvas = initializeFabric({
         fabricRef, canvasRef
-      })
-      // fabricRef.value = new fabric.Canvas(canvasRef.value, {
-      //   width: 500,
-      //   height: 500,
-      //   backgroundColor: 'skyblue',
-      // });
-      // console.log(fabricRef.value);
+      });
+      const dispose = useFabricEvents({
+        canvas,
+        fabricRef,
+        selectedShapeRef,
+        isDrawing,
+        shapeRef,
+        activeObjectRef,
+        setActiveElement,
+        isEditingRef,
+        setElementAttributes,
+        undo,
+        redo,
+        syncShapeInStorage,
+        deleteShapeFromStorage,
+      });
+
+      onUnmounted(dispose);
     });
 
     return {
@@ -84,7 +102,7 @@ export default {
       imageInputRef,
       canvasRef,
       fabricRef,
-      handleImageUpload,
+      handleImageUploadClick,
       handleActiveElement,
     };
   },

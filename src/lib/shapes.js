@@ -1,4 +1,4 @@
-import fabric from 'fabric';
+import { fabric } from 'fabric';
 import { v4 as uuidv4 } from "uuid";
 
 export const createRectangle = (pointer) => {
@@ -88,15 +88,15 @@ export const handleImageUpload = ({ file, canvas, shapeRef, syncShapeInStorage }
       img.scaleToWidth(200);
       img.scaleToHeight(200);
 
-      canvas.current.add(img);
+      canvas.value.add(img);
 
       // Assign a unique ID to the image
       img.objectId = uuidv4();
 
-      shapeRef.current = img;
+      shapeRef.value = img;
 
       syncShapeInStorage(img);
-      canvas.current.requestRenderAll();
+      canvas.value.requestRenderAll();
     });
   };
 
@@ -130,7 +130,7 @@ export const modifyShape = ({ canvas, property, value, activeObjectRef, syncShap
   }
 
   // Set the active object reference
-  activeObjectRef.current = selectedElement;
+  activeObjectRef.value = selectedElement;
 
   syncShapeInStorage(selectedElement);
 };
