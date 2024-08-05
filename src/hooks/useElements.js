@@ -1,13 +1,13 @@
-import { ref, inject, reactive } from 'vue';
+import { ref, inject, reactive, onMounted } from 'vue';
 import { fabric } from 'fabric';
 import { defaultNavElement } from '@design/constants';
 import { handleDelete } from '@design/lib/key-events';
 
-export default function useElements() {
+export default function useElements(providedFabricRef = null, providedCanvasRef = null) {
   const activeElement = ref(defaultNavElement);
   const imageInputRef = ref(null);
-  const fabricRef = inject('fabricRef');
-  const canvasRef = inject('canvasRef');
+  const fabricRef = providedFabricRef || inject('fabricRef', ref(null));
+  const canvasRef = providedCanvasRef || inject('canvasRef', ref(null));
 
   const undo = ref(null);
   const redo = ref(null);
@@ -59,7 +59,7 @@ export default function useElements() {
       // delete the selected shape from the canvas
       case "delete":
         // delete it from the canvas
-        handleDelete(fabricRef.value, deleteShapeFromStorage);
+        handleDelete(canvasRef.value, deleteShapeFromStorage);
         activeElement.value = defaultNavElement;
         break;
 

@@ -20,7 +20,7 @@
           @click="handleActiveElement(elem)"
           :class="[
             'flex h-fit justify-between gap-10 rounded-none px-5 py-3 focus:border-none',
-            { 'bg-green-200': activeElement.value === elem.value, 'hover:bg-primary-light': activeElement.value !== elem.value }
+            { 'bg-black': activeElement?.value === elem.value, 'hover:bg-primary-light': activeElement?.value !== elem.value }
           ]"
         >
           <div class="group flex items-center gap-2">
@@ -29,9 +29,9 @@
               :alt="elem.name"
               width="20"
               height="20"
-              :class="{ invert: activeElement.value === elem.value }"
+              :class="{ invert: activeElement?.value === elem.value }"
             />
-            <p :class="{ 'text-sm': true, 'text-black': activeElement.value === elem.value, 'text-black': activeElement.value !== elem.value }">
+            <p :class="{ 'text-sm': true, 'text-black': activeElement?.value === elem.value, 'text-black': activeElement?.value !== elem.value }">
               {{ elem.name }}
             </p>
           </div>
@@ -70,7 +70,7 @@
     },
     setup(props) {
       const isDropdownElem = computed(() => {
-        return props.item.value.some(elem => elem?.value === props.activeElement.value);
+        return props.item.value.some(elem => elem?.value === props.activeElement?.value);
       });
   
       return {

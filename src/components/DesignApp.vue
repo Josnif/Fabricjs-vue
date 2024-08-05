@@ -61,7 +61,7 @@ export default {
       deleteShapeFromStorage,
 
       handleActiveElement, 
-    } = useElements();
+    } = useElements(canvasRef, fabricRef);
 
     const handleImageUploadClick  = (e) => {
       e.stopPropagation();
